@@ -45,6 +45,19 @@ class Règle(Tableau_jeux):
             self.choix_couleur.append(Couleur((self.COULEURS[nombre])))
     
 
+    def jouer(self):
+        fini = False
+        compteur = 0
+        réussit = False
+        while fini == False:
+            
+            
+            if compteur == 9:
+                fini = True
+
+        pass
+
+
     def pointage(self):
         pass
 
@@ -58,4 +71,5 @@ class Couleur:
         return print(f'{self.couleur}')
 
 
-essai = Règle(6, 6)
+if __name__ == "__main__":
+    essai = Règle(6, 6)
