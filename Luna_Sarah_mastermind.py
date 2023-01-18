@@ -44,12 +44,34 @@ class Règle(Tableau_jeux):
         r.shuffle(temp)
         for nombre in temp:
             self.choix_couleur.append(Couleur((self.COULEURS[nombre])))
+
+
+    def couleur_chiffre(self, liste):
+        temp = []
+        for nombre in liste:
+            temp.append(Couleur(self.COULEURS[nombre -1]))
+        return temp
     
 
     def devine_couleur(self):
-        #demande à l'utilisateur les couleur qu'il veut essayer
-        #le met dans self.couleur utilisateur avec un append 
-        pass
+        temp = ''
+        choix_utilisateur = []
+        if self.nb_couleur <= 6:
+            for numéro, couleur in enumerate(self.COULEURS[0 : self.nb_couleur]):
+                temp += f'{numéro + 1} : {couleur}\t'
+            print(temp)
+        else:
+            for numéro, couleur in enumerate(self.COULEURS[0 : 6]):
+                temp += f'{numéro + 1} : {couleur}\t'
+            print(temp)
+            temp = ''
+            for numéro, couleur in enumerate(self.COULEURS[6 : self.nb_couleur]):
+                temp += f'{numéro + 1} : {couleur}\t'
+            print(temp)
+        choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_couleur} couleurs:'))
+        for chiffre in choix_utilisateur_temp:
+            choix_utilisateur.append(int(chiffre))
+        self.couleur_utilisateur = self.couleur_chiffre(choix_utilisateur)
 
 
     def compare(self):
@@ -101,3 +123,5 @@ class Couleur:
 
 
 if __name__ == "__main__":
+    essai = Règle(6, 6)
+    essai.jouer()
