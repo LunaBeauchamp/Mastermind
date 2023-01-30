@@ -1,6 +1,9 @@
 import random as r
-#!!!!!!!!!!!!!!!!!!!!!!!!   important   !!!!!!!!!!!!!!!!!!!!!!!
-#j'ai demandé au prof pour les couleur et il veut qu'on utiliseau minimum de lettre
+#Ici on peut mettre des commentaires sur des choses à changer ou à améliorer
+    #je mettrais ton menu dans une boucle parce que sinon on sort imédiatement après avoir jouer.
+    #je mettreai difficlté dans jouer comme ça ça nous fait un sous-menu.
+    #Il faut rajouter l'option classement dans le menu.
+    
 
 #Couleurs :
 #1 = "vert", 2 = "bleu", 3 = "mauve", 4 = "rouge", 5 = "orange", 6 = "jaune", 
