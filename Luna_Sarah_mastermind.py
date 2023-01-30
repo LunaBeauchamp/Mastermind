@@ -6,6 +6,51 @@ import random as r
 #1 = "vert", 2 = "bleu", 3 = "mauve", 4 = "rouge", 5 = "orange", 6 = "jaune", 
 #7= "rose", 8 = "truquoise", 9 = "blanc", 10 = "noir", 11 = "gris", 12 = "maron"
 
+
+class Mastermind:
+    def __init__(self):
+        self.menu()
+    
+    def jeux(self):
+        print("\nSois prêt.e!")
+
+    def reglement(self): 
+        print("\nLe but du Mastermind est de gagner un maximum de manches. Le joueur doit trouver la combinaison secrète pour gagner une manche.")
+
+    def difficulte(self):
+        print("\nDifficulté du jeux : ")
+        print("1. Facile")
+        print("2. Difficile")
+        print("3. Personalisé", '\n')
+        print("Choisir un numèro : ")
+        exit()
+        
+    def sortir(self):
+        # print("\nÀ bientôt!")
+        exit()
+        
+    def menu(self):
+        print('\n//////////////////   Mastermind Jeux   //////////////////','\n')
+        print("1. Jouer le jeux")
+        print("2. Règlement")
+        print("3. Difficulté")
+        print("4. Sortir",'\n')
+        choice = input("Choisir un numèro : ")
+        if choice == '1':
+            self.jeux()
+        elif choice == '2':
+            self.reglement()
+        elif choice == '3':
+            self.difficulte()
+        elif choice == '4':
+            self.sortir()
+        else:
+            print("Choix inexistent! Essayer à nouveau!\n")
+            self.menu()
+
+game = Mastermind()
+
+
 class Tableau_jeux:
     def __init__(self) -> None:
         self.classement : list[int]= []
