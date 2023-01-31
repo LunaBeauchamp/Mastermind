@@ -1,57 +1,10 @@
 import random as r
-#Ici on peut mettre des commentaires sur des choses à changer ou à améliorer
-    #je mettrais ton menu dans une boucle parce que sinon on sort imédiatement après avoir jouer.
-    #je mettreai difficlté dans jouer comme ça ça nous fait un sous-menu.
-    #Il faut rajouter l'option classement dans le menu.
-    
+#!!!!!!!!!!!!!!!!!!!!!!!!   important   !!!!!!!!!!!!!!!!!!!!!!!
+#j'ai demandé au prof pour les couleur et il veut qu'on utiliseau minimum de lettre
 
 #Couleurs :
 #1 = "vert", 2 = "bleu", 3 = "mauve", 4 = "rouge", 5 = "orange", 6 = "jaune", 
 #7= "rose", 8 = "truquoise", 9 = "blanc", 10 = "noir", 11 = "gris", 12 = "maron"
-
-
-class Mastermind:
-    def __init__(self):
-        self.menu()
-    
-    def jeux(self):
-        print("\nSois prêt.e!")
-
-    def reglement(self): 
-        print("\nLe but du Mastermind est de gagner un maximum de manches. Le joueur doit trouver la combinaison secrète pour gagner une manche.")
-
-    def difficulte(self):
-        print("\nDifficulté du jeux : ")
-        print("1. Facile")
-        print("2. Difficile")
-        print("3. Personalisé", '\n')
-        print("Choisir un numèro : ")
-        exit()
-        
-    def sortir(self):
-        # print("\nÀ bientôt!")
-        exit()
-        
-    def menu(self):
-        print('\n//////////////////   Mastermind Jeux   //////////////////','\n')
-        print("1. Jouer le jeux")
-        print("2. Règlement")
-        print("3. Difficulté")
-        print("4. Sortir",'\n')
-        choice = input("Choisir un numèro : ")
-        if choice == '1':
-            self.jeux()
-        elif choice == '2':
-            self.reglement()
-        elif choice == '3':
-            self.difficulte()
-        elif choice == '4':
-            self.sortir()
-        else:
-            print("Choix inexistent! Essayer à nouveau!\n")
-            self.menu()
-
-game = Mastermind()
 
 
 class Tableau_jeux:
@@ -113,7 +66,7 @@ class Règle(Tableau_jeux):
                 temp += f'{numéro + 1} : {couleur}\t'
             print(temp)
             temp = ''
-            for numéro, couleur in enumerate(self.COULEURS[6 : self.nb_couleur]):
+            for numéro, couleur in enumerate(self.COULEURS[6 : self.nb_couleur],start=6):
                 temp += f'{numéro + 1} : {couleur}\t'
             print(temp)
         choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_couleur} couleurs:'))
@@ -129,10 +82,20 @@ class Règle(Tableau_jeux):
         #2. si la place est mauvaise en regardant la couleur
         #print nb bon et nb mauvaise place
         #return True si c'est réussi et False si c'est mauvais
-        pass
-
-
+        result_choix = ""
+        for i in range(0,len(self.couleur_utilisateur)):
+            if self.couleur_utilisateur[i] == self.choix_couleur[i]:
+                result_choix = result_choix + "\U0001F973" + " " #return True
+            else:
+                result_choix = result_choix + "\U0001F621" + " " #return False
+        print(result_choix)
+        
+ 
     def pointage(self, nb_ligne):
+
+
+
+
         # return True si c'est un nouveau meillleur score
         pass
 
@@ -167,9 +130,72 @@ class Couleur:
         return print(f'{self.couleur}')
 
 
+class Mastermind:
+    def __init__(self):
+        self.menu()
+    
+    def jeux(self):
+        print("\nSois prêt.e!")
+        jeux_standard = Règle(6, 6)
+        jeux_standard.jouer()
 
+    def reglement(self): 
+        print("\n===================================================================================================================================")
+        print("|| Le but du Mastermind est de gagner un maximum de manches. Le joueur doit trouver la combinaison secrète pour gagner une manche.||")
+        print("===================================================================================================================================")
+        self.menu()
+        
+    def difficulte(self):
+        print("\nDifficulté du jeux : ")
+        print("1. Facile")
+        print("2. Difficile")
+        print("3. Personalisé", '\n')
+        choix_dif = int(input("Choisir un numèro : "))
+        nb_colonnes = 6 #jeu standard
+        nb_couleur = 6  #jeu standard
+        if choix_dif == 1:
+            nb_colonnes = 4
+            nb_couleur = 6
+        elif choix_dif == 2:
+            nb_colonnes = 6
+            nb_couleur = 7
+        elif choix_dif == 3:
+            nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
+            while nb_colonnes < 4 or nb_colonnes > 10:
+                print("le nombre de colonnes doivent être entre 4 et 10!")
+                nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
+            nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
+            while nb_couleur < 4 or nb_couleur > 12:
+                print("le nombre de couleurs doivent être entre 4 et 12!")
+                nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
+        config = Règle(nb_colonnes,nb_couleur)
+        config.jouer()
+              
+    def sortir(self):
+        # print("\nÀ bientôt!")
+        exit()
+        
+    def menu(self):
+        print('\n//////////////////   Mastermind Jeux   //////////////////','\n')
+        print("1. Jouer le jeux")
+        print("2. Règlement")
+        print("3. Difficulté")
+        print("4. Sortir",'\n')
+        choice = input("Choisir un numèro : ")
+        if choice == '1':
+            self.jeux()
+        elif choice == '2':
+            self.reglement()
+        elif choice == '3':
+            self.difficulte()
+        elif choice == '4':
+            self.sortir()
+        else:
+            print("Choix inexistent! Essayer à nouveau!\n")
+            self.menu()
 
+Mastermind()
 
-if __name__ == "__main__":
-    essai = Règle(6, 6)
-    essai.jouer()
+# if __name__ == "__main__":
+#     essai = Règle(6, 6)
+#     essai.jouer()
