@@ -35,7 +35,7 @@ class Règle(Tableau_jeux):
         self.nb_couleur = nb_couleur
         self.choix_couleur = []
         self.couleur_utilisateur = []
-        self.points = ''
+        self.points = 0
 
 
     def choisir_couleur(self):
@@ -107,13 +107,23 @@ class Règle(Tableau_jeux):
         else:
             return False
  
-    def pointage(self, nb_ligne):
 
-
-
-
-        # return True si c'est un nouveau meillleur score
+    def update_score():
         pass
+
+
+    def pointage(self, nb_ligne):
+        if self.nb_colones >= self.nb_couleur:
+            self.points = int((self.nb_colones / self.nb_couleur) * (10 - nb_ligne)) * 14
+        elif self.nb_colones < self.nb_couleur:
+            self.points = int((self.nb_couleur / self.nb_colones) * (10 - nb_ligne)) * 21
+        
+        if self.points >= self.classement[0]:
+            return True
+        else:
+            return False
+        self.update_score()
+
 
 
     def jouer(self):
@@ -156,9 +166,9 @@ class Mastermind:
         jeux_standard.jouer()
 
     def reglement(self): 
-        print("\n===================================================================================================================================")
-        print("|| Le but du Mastermind est de gagner un maximum de manches. Le joueur doit trouver la combinaison secrète pour gagner une manche.||")
-        print("===================================================================================================================================")
+        print("\n=============================================================================================================================================")
+        print("|| Le but du Mastermind est de gagner un maximum de manches. Le joueur doit trouver la combinaison secrète en moins de 10 essais pour gagner.||")
+        print("===============================================================================================================================================")
         self.menu()
         
     def difficulte(self):
