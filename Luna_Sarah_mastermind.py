@@ -83,13 +83,28 @@ class Règle(Tableau_jeux):
         #print nb bon et nb mauvaise place
         #return True si c'est réussi et False si c'est mauvais
         result_choix = ""
+        réponse = ''
+        utilisateur = ''
+        couleur_trouver = 0
         for i in range(0,len(self.couleur_utilisateur)):
-            if self.couleur_utilisateur[i] == self.choix_couleur[i]:
+            réponse = self.couleur_utilisateur[i]
+            utilisateur = self.choix_couleur[i]
+            if réponse.couleur == utilisateur.couleur:
                 result_choix = result_choix + "\U0001F973" + " " #return True
-            else:
-                result_choix = result_choix + "\U0001F621" + " " #return False
+                trouver += 1   
+            fini = False         
+            while fini == False:
+                for couleur_réponse in self.choisir_couleur:
+                    if couleur_réponse.couleur == utilisateur.couleur:
+                        result_choix += 'emoji sourir '
+                        fini == True
+                if fini == False:
+                    result_choix = result_choix + "\U0001F621" + " " #return False
         print(result_choix)
-        
+        if couleur_trouver == len(self.choix_couleur):
+            return True
+        else:
+            return False
  
     def pointage(self, nb_ligne):
 
@@ -105,7 +120,7 @@ class Règle(Tableau_jeux):
         fini = False
         compteur = 0
         réussit = False
-        while fini == False:
+        while fini == False or réussit == False:
             self.devine_couleur()
             réussit = self.compare()
             pass
@@ -194,8 +209,8 @@ class Mastermind:
             print("Choix inexistent! Essayer à nouveau!\n")
             self.menu()
 
-Mastermind()
+#Mastermind()
 
-# if __name__ == "__main__":
-#     essai = Règle(6, 6)
-#     essai.jouer()
+if __name__ == "__main__":
+    essai = Règle(6, 6)
+    essai.jouer()
