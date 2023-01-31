@@ -87,19 +87,20 @@ class Règle(Tableau_jeux):
         utilisateur = ''
         couleur_trouver = 0
         for i in range(0,len(self.couleur_utilisateur)):
+            fini = False 
             réponse = self.couleur_utilisateur[i]
             utilisateur = self.choix_couleur[i]
             if réponse.couleur == utilisateur.couleur:
-                result_choix = result_choix + "\U0001F973" + " " #return True
-                trouver += 1   
-            fini = False         
+                result_choix = result_choix + "\U0001F973" + " " 
+                couleur_trouver += 1   
+                fini = True
             while fini == False:
-                for couleur_réponse in self.choisir_couleur:
+                for couleur_réponse in self.choix_couleur:
                     if couleur_réponse.couleur == utilisateur.couleur:
-                        result_choix += 'emoji sourir '
-                        fini == True
+                        result_choix += "\U0001F642" + " "
+                        fini = True
                 if fini == False:
-                    result_choix = result_choix + "\U0001F621" + " " #return False
+                    result_choix = result_choix + "\U0001F621" + " " 
         print(result_choix)
         if couleur_trouver == len(self.choix_couleur):
             return True
@@ -117,15 +118,15 @@ class Règle(Tableau_jeux):
 
     def jouer(self):
         self.choisir_couleur()
-        fini = False
+        fin = False
         compteur = 0
         réussit = False
-        while fini == False or réussit == False:
+        while fin == False and réussit == False:
             self.devine_couleur()
             réussit = self.compare()
-            pass
+            
             if compteur == 9:
-                fini = True
+                fin = True
             compteur += 1
         if réussit == False:
             print("Vous n'avex pas réussit. Meilleur chance la prochaine fois.")
