@@ -33,14 +33,15 @@ class Règle(Tableau_jeux):
         self.points = 0
 
 
+
     def choisir_couleur(self):
-        #prendr nb colones dans tout nb couleur
-        temp = []
-        for nombre in range(self.nb_colones):
-            temp.append(nombre)
-        r.shuffle(temp)
-        for nombre in temp:
-            self.choix_couleur.append(Couleur((self.COULEURS[nombre])))
+        couleurs = []
+        temp= []
+        for couleur in self.COULEURS[0 : self.nb_couleur]:
+            couleurs.append(couleur)
+        temp = r.sample(couleurs, self.nb_colones)
+        for couleur in temp:
+            self.choix_couleur.append(Couleur(couleur))
 
 
     def couleur_chiffre(self, liste):
@@ -80,8 +81,8 @@ class Règle(Tableau_jeux):
         couleur_trouver = 0
         for i in range(0,len(self.couleur_utilisateur)):
             fini = False 
-            réponse = self.couleur_utilisateur[i]
-            utilisateur = self.choix_couleur[i]
+            utilisateur = self.couleur_utilisateur[i]
+            réponse = self.choix_couleur[i]
             if réponse.couleur == utilisateur.couleur:
                 result_choix = result_choix + "\U0001F973" + " " 
                 couleur_trouver += 1   
@@ -93,6 +94,7 @@ class Règle(Tableau_jeux):
                         fini = True
                 if fini == False:
                     result_choix = result_choix + "\U0001F621" + " " 
+                    fini = True
         print(result_choix)
         if couleur_trouver == len(self.choix_couleur):
             return True
@@ -106,9 +108,9 @@ class Règle(Tableau_jeux):
 
     def pointage(self, nb_ligne):
         if self.nb_colones >= self.nb_couleur:
-            self.points = int((self.nb_colones / self.nb_couleur) * (10 - nb_ligne)) * 14
+            self.points = int((self.nb_colones / self.nb_couleur) * (11 - nb_ligne)) * 7
         elif self.nb_colones < self.nb_couleur:
-            self.points = int((self.nb_couleur / self.nb_colones) * (10 - nb_ligne)) * 21
+            self.points = int((self.nb_couleur / self.nb_colones) * (11 - nb_ligne)) * 7
         
         if self.points >= self.classement[0]:
             return True
@@ -212,8 +214,7 @@ class Mastermind(Tableau_jeux):
                 print("À bientot")
             else:
                 print("Choix inexistent! Essayer à nouveau!\n")
-                self.menu()
 
 
 if __name__ == "__main__":
-    Mastermind()
+   Mastermind()
