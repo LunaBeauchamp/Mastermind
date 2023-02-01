@@ -21,11 +21,6 @@ class Tableau_jeux:
             for ligne in donnees:
                 ligne = int(ligne.strip())
                 self.classement.append(ligne)
-            
-
-class Affichage(Tableau_jeux):
-    def __init__(self) -> None:
-        super().__init__()
 
 
 class Règle(Tableau_jeux):
@@ -39,8 +34,9 @@ class Règle(Tableau_jeux):
 
 
     def choisir_couleur(self):
+        #prendr nb colones dans tout nb couleur
         temp = []
-        for nombre in range(self.nb_couleur):
+        for nombre in range(self.nb_colones):
             temp.append(nombre)
         r.shuffle(temp)
         for nombre in temp:
@@ -69,19 +65,15 @@ class Règle(Tableau_jeux):
             for numéro, couleur in enumerate(self.COULEURS[6 : self.nb_couleur],start=6):
                 temp += f'{numéro + 1} : {couleur}\t'
             print(temp)
-        choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_couleur} couleurs:'))
+        choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_colones} couleurs:'))
+        while len(choix_utilisateur_temp) != self.nb_colones:
+            choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_colones} couleurs!!!:'))
         for chiffre in choix_utilisateur_temp:
             choix_utilisateur.append(int(chiffre))
         self.couleur_utilisateur = self.couleur_chiffre(choix_utilisateur)
 
 
     def compare(self):
-        #comparer self.couleur_utilisateur : list[object] et self.choix_couleur(object) : list[object]
-        #enumerate une liste
-        #1. si même couleur et même place if 
-        #2. si la place est mauvaise en regardant la couleur
-        #print nb bon et nb mauvaise place
-        #return True si c'est réussi et False si c'est mauvais
         result_choix = ""
         réponse = ''
         utilisateur = ''
@@ -125,7 +117,6 @@ class Règle(Tableau_jeux):
         self.update_score()
 
 
-
     def jouer(self):
         self.choisir_couleur()
         fin = False
@@ -156,8 +147,9 @@ class Couleur:
         return print(f'{self.couleur}')
 
 
-class Mastermind:
+class Mastermind(Tableau_jeux):
     def __init__(self):
+        super().__init__()
         self.menu()
     
     def jeux(self):
@@ -177,8 +169,6 @@ class Mastermind:
         print("2. Difficile")
         print("3. Personalisé", '\n')
         choix_dif = int(input("Choisir un numèro : "))
-        nb_colonnes = 6 #jeu standard
-        nb_couleur = 6  #jeu standard
         if choix_dif == 1:
             nb_colonnes = 4
             nb_couleur = 6
@@ -197,31 +187,33 @@ class Mastermind:
         config = Règle(nb_colonnes,nb_couleur)
         config.jouer()
               
-    def sortir(self):
-        # print("\nÀ bientôt!")
-        exit()
-        
-    def menu(self):
-        print('\n//////////////////   Mastermind Jeux   //////////////////','\n')
-        print("1. Jouer le jeux")
-        print("2. Règlement")
-        print("3. Difficulté")
-        print("4. Sortir",'\n')
-        choice = input("Choisir un numèro : ")
-        if choice == '1':
-            self.jeux()
-        elif choice == '2':
-            self.reglement()
-        elif choice == '3':
-            self.difficulte()
-        elif choice == '4':
-            self.sortir()
-        else:
-            print("Choix inexistent! Essayer à nouveau!\n")
-            self.menu()
 
-#Mastermind()
+    def afficher_classement(self):
+        pass
+
+
+    def menu(self):
+        sortie = False
+        while sortie == False:
+            print('\n//////////////////   Mastermind Jeux   //////////////////','\n')
+            print("1. Jouer le jeux")
+            print("2. Règlement")
+            print("3. Classement")
+            print("4. Sortir",'\n')
+            choice = input("Choisir un numèro : ")
+            if choice == '1':
+                self.difficulte()
+            elif choice == '2':
+                self.reglement()
+            elif choice == '3':
+                self.afficher_classement
+            elif choice == '4':
+                sortie = True
+                print("À bientot")
+            else:
+                print("Choix inexistent! Essayer à nouveau!\n")
+                self.menu()
+
 
 if __name__ == "__main__":
-    essai = Règle(6, 6)
-    essai.jouer()
+    Mastermind()
