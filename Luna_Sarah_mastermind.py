@@ -175,26 +175,32 @@ class Mastermind(Tableau_jeux):
         self.menu()
         
     def difficulte(self):
-        print("\nDifficulté du jeux : ")
-        print("1. Facile")
-        print("2. Difficile")
-        print("3. Personalisé", '\n')
-        choix_dif = int(input("Choisir un numèro : "))
-        if choix_dif == 1:
-            nb_colonnes = 4
-            nb_couleur = 6
-        elif choix_dif == 2:
-            nb_colonnes = 6
-            nb_couleur = 7
-        elif choix_dif == 3:
-            nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
-            while nb_colonnes < 4 or nb_colonnes > 10:
-                print("le nombre de colonnes doivent être entre 4 et 10!")
+        sortie = False
+        while sortie == False:
+            sortie = True
+            print("\nDifficulté du jeux : ")
+            print("1. Facile")
+            print("2. Difficile")
+            print("3. Personalisé", '\n')
+            choix_dif = int(input("Choisir un numèro : "))
+            if choix_dif == 1:
+                nb_colonnes = 4
+                nb_couleur = 6
+            elif choix_dif == 2:
+                nb_colonnes = 6
+                nb_couleur = 9
+            elif choix_dif == 3:
                 nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
-            nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
-            while nb_couleur < 4 or nb_couleur > 12:
-                print("le nombre de couleurs doivent être entre 4 et 12!")
+                while nb_colonnes < 4 or nb_colonnes > 10:
+                    print("le nombre de colonnes doivent être entre 4 et 10!")
+                    nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
                 nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
+                while nb_couleur < 4 or nb_couleur > 12:
+                    print("le nombre de couleurs doivent être entre 4 et 12!")
+                    nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
+            else:
+                print("Choix inexistent! Essayer à nouveau!\n")
+                sortie = False                    
         config = Règle(nb_colonnes,nb_couleur)
         config.jouer()
               
