@@ -33,13 +33,21 @@ class Règle(Tableau_jeux):
         self.points = 0
 
 
-
     def choisir_couleur(self):
         couleurs = []
         temp= []
         for couleur in self.COULEURS[0 : self.nb_couleur]:
             couleurs.append(couleur)
-        temp = r.sample(couleurs, self.nb_colones)
+        if self.nb_colones <= self.nb_couleur:
+            temp = r.sample(couleurs, self.nb_colones)
+        elif self.nb_colones > self.nb_couleur:
+            mult = [] 
+            occurence = int(self.nb_colones / self.nb_couleur) 
+            if self.nb_colones % self.nb_couleur > 0: # arondir vers le haut
+                occurence += 1
+            for i in couleurs:
+                mult.append(occurence)
+            temp = r.sample(couleurs, counts=mult, k=self.nb_colones)
         for couleur in temp:
             self.choix_couleur.append(Couleur(couleur))
 
@@ -90,9 +98,10 @@ class Règle(Tableau_jeux):
             while fini == False:
                 for couleur_réponse in self.choix_couleur:
                     if couleur_réponse.couleur == utilisateur.couleur:
-                        result_choix += "\U0001F642" + " "
                         fini = True
-                if fini == False:
+                if fini == True:
+                    result_choix += "\U0001F642" + " "
+                elif fini == False:
                     result_choix = result_choix + "\U0001F621" + " " 
                     fini = True
         print(result_choix)
@@ -218,3 +227,5 @@ class Mastermind(Tableau_jeux):
 
 if __name__ == "__main__":
    Mastermind()
+   #essaie = Règle(12,5)
+   #essaie.jouer()
