@@ -61,7 +61,7 @@ class Règle(Tableau_jeux):
 
     def devine_couleur(self):
         temp = ''
-        choix_utilisateur = []
+        sortie = False
         if self.nb_couleur <= 6:
             for numéro, couleur in enumerate(self.COULEURS[0 : self.nb_couleur]):
                 temp += f'{numéro + 1} : {couleur}\t'
@@ -74,11 +74,19 @@ class Règle(Tableau_jeux):
             for numéro, couleur in enumerate(self.COULEURS[6 : self.nb_couleur],start=6):
                 temp += f'{numéro + 1} : {couleur}\t'
             print(temp)
-        choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_colones} couleurs:'))
-        while len(choix_utilisateur_temp) != self.nb_colones:
-            choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_colones} couleurs!!!:'))
-        for chiffre in choix_utilisateur_temp:
-            choix_utilisateur.append(int(chiffre))
+        while sortie == False:
+            sortie = True
+            choix_utilisateur_temp = str(input(f'Choisissez vos {self.nb_colones} couleurs.:'))
+            if len(choix_utilisateur_temp) == self.nb_colones:
+                choix_utilisateur = []
+                for chiffre in choix_utilisateur_temp:
+                    if int(chiffre) > self.nb_couleur:
+                        sortie = False
+                        print(f"{chiffre} ne correspond pas à une couleur.")
+                    choix_utilisateur.append(int(chiffre))
+            else:
+                print("vous avez rentrer trop de couleurs.")
+                sortie = False
         self.couleur_utilisateur = self.couleur_chiffre(choix_utilisateur)
 
 
