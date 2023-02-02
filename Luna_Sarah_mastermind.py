@@ -10,7 +10,6 @@ import random as r
 class Tableau_jeux:
     def __init__(self) -> None:
         self.classement : list[int]= []
-        self.lecture_classement()
         self.COULEURS = ["vert", "bleu", "mauve", "rouge", "orange", "jaune", 
                         "rose", "truquoise", "blanc", "noir", "gris", "maron"]
 
@@ -84,8 +83,11 @@ class Règle(Tableau_jeux):
                         sortie = False
                         print(f"{chiffre} ne correspond pas à une couleur.")
                     choix_utilisateur.append(int(chiffre))
-            else:
+            elif len(choix_utilisateur_temp) > self.nb_colones:
                 print("vous avez rentrer trop de couleurs.")
+                sortie = False
+            else:
+                print("vous n'avez pas rentré suffisament de couleurs")
                 sortie = False
         self.couleur_utilisateur = self.couleur_chiffre(choix_utilisateur)
 
@@ -148,6 +150,7 @@ class Règle(Tableau_jeux):
             f.close()
 
     def jouer(self):
+        self.lecture_classement()
         self.choisir_couleur()
         fin = False
         compteur = 0
@@ -226,6 +229,8 @@ class Mastermind(Tableau_jeux):
               
 
     def afficher_classement(self):
+        self.classement = []
+        self.lecture_classement()
         for index, line in enumerate(self.classement,start=1): 
             if index == 1:
                 position = str(index) + "ère"
