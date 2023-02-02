@@ -111,22 +111,33 @@ class Règle(Tableau_jeux):
             return False
  
 
-    def update_score():
-        pass
-
-
     def pointage(self, nb_ligne):
         if self.nb_colones >= self.nb_couleur:
             self.points = int((self.nb_colones / self.nb_couleur) * (11 - nb_ligne)) * 7
         elif self.nb_colones < self.nb_couleur:
             self.points = int((self.nb_couleur / self.nb_colones) * (11 - nb_ligne)) * 7
-        
         if self.points >= self.classement[0]:
             return True
         else:
             return False
-        self.update_score()
+            
 
+    def update_scoreself(self):
+        updated_classement = []
+        flag_enreg = False
+        place = 0
+        for place in range(0,len(self.classement)):
+            if self.points > self.classement[place] and flag_enreg == False:
+                updated_classement.append(self.points)
+                flag_enreg = True              
+            else:
+                if flag_enreg == True: place = place -1
+                updated_classement.append(self.classement[place])                
+        with open('score.txt', "w", encoding="UTF-8") as f:
+            for ligne in updated_classement:
+                f.write(str(ligne))
+                f.write("\n") 
+            f.close()
 
     def jouer(self):
         self.choisir_couleur()
@@ -148,6 +159,7 @@ class Règle(Tableau_jeux):
             if meilleur == True:
                 print(f"C'est un nouveau record!!")
             print(f"vous avez eu {self.points} points.")
+        self.update_scoreself()
 
 
 class Couleur:
@@ -192,11 +204,11 @@ class Mastermind(Tableau_jeux):
             elif choix_dif == 3:
                 nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
                 while nb_colonnes < 4 or nb_colonnes > 10:
-                    print("le nombre de colonnes doivent être entre 4 et 10!")
+                    print("le nombre de colonnes doit être entre 4 et 10!")
                     nb_colonnes = int(input("Choisir le nombre de colonnes (4 à 10): "))
                 nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
                 while nb_couleur < 4 or nb_couleur > 12:
-                    print("le nombre de couleurs doivent être entre 4 et 12!")
+                    print("le nombre de couleurs doit être entre 4 et 12!")
                     nb_couleur = int(input("Choisir le nombre de couleurs (4 à 12): "))
             else:
                 print("Choix inexistent! Essayer à nouveau!\n")
@@ -206,7 +218,12 @@ class Mastermind(Tableau_jeux):
               
 
     def afficher_classement(self):
-        pass
+        for index, line in enumerate(self.classement,start=1): 
+            if index == 1:
+                position = str(index) + "ère"
+            else: position = str(index) + "ème"
+            print(f"{position} place: {line}")
+
 
 
     def menu(self):
@@ -223,10 +240,10 @@ class Mastermind(Tableau_jeux):
             elif choice == '2':
                 self.reglement()
             elif choice == '3':
-                self.afficher_classement
+                self.afficher_classement()
             elif choice == '4':
                 sortie = True
-                print("À bientot")
+                print("À bientot!")
             else:
                 print("Choix inexistent! Essayer à nouveau!\n")
 
